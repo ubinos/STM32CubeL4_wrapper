@@ -6,6 +6,8 @@ set_cache_default(STM32CUBEL4__USE_HAL_DRIVER TRUE BOOL "Use STM32 Cube L4 HAL D
 
 set_cache_default(STM32CUBEL4__USE_FULL_LL_DRIVER FALSE BOOL "Use STM32 Cube L4 Full Low Level Driver")
 
+set_cache_default(STM32CUBEL4__USE_STM32L475_DISCOVERY FALSE BOOL "Use STM32 Cube L4 STM32L475 Discovery")
+
 ####
 
 set(_tmp_all_flags "")
@@ -16,6 +18,10 @@ endif()
 
 if(STM32CUBEL4__USE_FULL_LL_DRIVER)
     set(_tmp_all_flags "${_tmp_all_flags} -DUSE_FULL_LL_DRIVER")
+endif()
+
+if(STM32CUBEL4__USE_STM32L475_DISCOVERY)
+    set(_tmp_all_flags "${_tmp_all_flags} -DUSE_STM32L475_DISCOVERY")
 endif()
 
 set(CMAKE_ASM_FLAGS "${_tmp_all_flags} ${CMAKE_ASM_FLAGS}")
