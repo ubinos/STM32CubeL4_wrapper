@@ -27,6 +27,7 @@ if(INCLUDE__STM32CUBEL4)
 		set(PROJECT_SOURCES ${PROJECT_SOURCES} ${_tmp_source_dir}/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_gpio.c)
 		set(PROJECT_SOURCES ${PROJECT_SOURCES} ${_tmp_source_dir}/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_i2c.c)
 		set(PROJECT_SOURCES ${PROJECT_SOURCES} ${_tmp_source_dir}/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_i2c_ex.c)
+		set(PROJECT_SOURCES ${PROJECT_SOURCES} ${_tmp_source_dir}/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_lptim.c)
 		set(PROJECT_SOURCES ${PROJECT_SOURCES} ${_tmp_source_dir}/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c)
 		set(PROJECT_SOURCES ${PROJECT_SOURCES} ${_tmp_source_dir}/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr_ex.c)
 		set(PROJECT_SOURCES ${PROJECT_SOURCES} ${_tmp_source_dir}/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_rcc.c)
@@ -71,6 +72,25 @@ if(INCLUDE__STM32CUBEL4)
 		set(PROJECT_SOURCES ${PROJECT_SOURCES} ${_tmp_source_dir}/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_ll_utils.c)
 	
 	endif(STM32CUBEL4__USE_FULL_LL_DRIVER)
+
+	if(STM32CUBEL4__USE_FREERTOS)
+	
+		include_directories(${_tmp_source_dir}/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F)
+		include_directories(${_tmp_source_dir}/Middlewares/Third_Party/FreeRTOS/Source)
+		include_directories(${_tmp_source_dir}/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS)
+		include_directories(${_tmp_source_dir}/Middlewares/Third_Party/FreeRTOS/Source/include)
+		
+		set(PROJECT_SOURCES ${PROJECT_SOURCES} ${_tmp_source_dir}/Middlewares/Third_Party/FreeRTOS/Source/event_groups.c)
+		set(PROJECT_SOURCES ${PROJECT_SOURCES} ${_tmp_source_dir}/Middlewares/Third_Party/FreeRTOS/Source/list.c)
+		set(PROJECT_SOURCES ${PROJECT_SOURCES} ${_tmp_source_dir}/Middlewares/Third_Party/FreeRTOS/Source/queue.c)
+		set(PROJECT_SOURCES ${PROJECT_SOURCES} ${_tmp_source_dir}/Middlewares/Third_Party/FreeRTOS/Source/tasks.c)
+		set(PROJECT_SOURCES ${PROJECT_SOURCES} ${_tmp_source_dir}/Middlewares/Third_Party/FreeRTOS/Source/timers.c)
+		
+		set(PROJECT_SOURCES ${PROJECT_SOURCES} ${_tmp_source_dir}/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.c)
+		set(PROJECT_SOURCES ${PROJECT_SOURCES} ${_tmp_source_dir}/Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.c)
+		set(PROJECT_SOURCES ${PROJECT_SOURCES} ${_tmp_source_dir}/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.c)
+	
+	endif(STM32CUBEL4__USE_FREERTOS)
 
 endif(INCLUDE__STM32CUBEL4)
 
