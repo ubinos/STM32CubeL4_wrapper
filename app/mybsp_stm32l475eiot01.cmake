@@ -1,5 +1,5 @@
-set_cache(UBINOS__UBICLIB__USE_STDIO_RETARGETING                                FALSE   BOOL)
-set_cache(UBINOS__BSP__USE_DTTY                                                 FALSE   BOOL)
+set_cache(UBINOS__UBICLIB__USE_STDIO_RETARGETING FALSE BOOL)
+set_cache(UBINOS__BSP__USE_DTTY FALSE BOOL)
 
 include(${PROJECT_UBINOS_DIR}/config/ubinos_stm32l475eiot01.cmake)
 
