@@ -1,6 +1,3 @@
-set_cache(UBINOS__UBICLIB__USE_STDIO_RETARGETING FALSE BOOL)
-set_cache(UBINOS__BSP__USE_DTTY FALSE BOOL)
-
 include(${PROJECT_UBINOS_DIR}/config/ubinos_stm32l475eiot01.cmake)
 
 include(${PROJECT_LIBRARY_DIR}/stm32cubel4_wrapper/config/stm32cubel4.cmake)
