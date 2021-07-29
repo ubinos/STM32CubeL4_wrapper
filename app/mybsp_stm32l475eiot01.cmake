@@ -1,3 +1,11 @@
+#
+# Copyright (c) 2021 Sung Ho Park and CSOS
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+
+# {ubinos_config_type: [buildable, cmake, app]}
+
 include(${PROJECT_UBINOS_DIR}/config/ubinos_stm32l475eiot01.cmake)
 
 include(${PROJECT_LIBRARY_DIR}/stm32cubel4_wrapper/config/stm32cubel4.cmake)
