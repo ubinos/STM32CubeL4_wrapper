@@ -32,7 +32,7 @@
 	@echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
 	@echo ""
 	@echo ""
-	make -f makefile.mk $@ CONFIG_DIR=../app CONFIG_NAME=cli_tester_stm32l276geval_extdtty
+	make -f makefile.mk $@ CONFIG_DIR=../app CONFIG_NAME=cli_tester_stm32l476geval_extdtty
 	@echo ""
 	@echo ""
 
