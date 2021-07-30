@@ -36,6 +36,8 @@ if(INCLUDE__STM32CUBEL4)
 		set(PROJECT_SOURCES ${PROJECT_SOURCES} ${_tmp_source_dir}/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_spi_ex.c)
 		set(PROJECT_SOURCES ${PROJECT_SOURCES} ${_tmp_source_dir}/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_uart.c)
 		set(PROJECT_SOURCES ${PROJECT_SOURCES} ${_tmp_source_dir}/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_uart_ex.c)
+		set(PROJECT_SOURCES ${PROJECT_SOURCES} ${_tmp_source_dir}/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_tim.c)
+		set(PROJECT_SOURCES ${PROJECT_SOURCES} ${_tmp_source_dir}/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_tim_ex.c)
 
 		if(UBINOS__BSP__BOARD_MODEL STREQUAL "STM32L475EIOT01")
 
