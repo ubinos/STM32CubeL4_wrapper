@@ -72,6 +72,12 @@ if(INCLUDE__STM32CUBEL4)
 			set(PROJECT_SOURCES ${PROJECT_SOURCES} ${_tmp_source_dir}/Drivers/BSP/Components/stmpe1600/stmpe1600.c)
 			set(PROJECT_SOURCES ${PROJECT_SOURCES} ${_tmp_source_dir}/Drivers/BSP/Components/stmpe811/stmpe811.c)
 
+		elseif(UBINOS__BSP__BOARD_MODEL STREQUAL "NUCLEOL476RG")
+
+			include_directories(${_tmp_source_dir}/Drivers/BSP/STM32L4xx_Nucleo)
+
+			set(PROJECT_SOURCES ${PROJECT_SOURCES} ${_tmp_source_dir}/Drivers/BSP/STM32L4xx_Nucleo/stm32l4xx_nucleo.c)
+
 		else()
 
 			message(FATAL_ERROR "Unsupported UBINOS__BSP__BOARD_MODEL")
