@@ -6,7 +6,7 @@
 
 # {ubinos_config_type: [buildable, cmake, app]}
 
-include(${PROJECT_UBINOS_DIR}/config/ubinos_stm32l476geval_baremetal.cmake)
+include(${PROJECT_UBINOS_DIR}/config/ubinos_nucleol476rg_baremetal.cmake)
 
 include(${CMAKE_CURRENT_LIST_DIR}/stm32cubel4.cmake)
 
@@ -14,5 +14,5 @@ include(${CMAKE_CURRENT_LIST_DIR}/stm32cubel4.cmake)
 
 get_filename_component(_tmp_source_dir "${STM32CUBEL4__BASE_DIR}" ABSOLUTE)
 
-include_directories(${_tmp_source_dir}/Projects/NUCLEO-L476RG/Examples_MIX/UART/UART_HyperTerminal_IT/Inc)
+include_directories(${_tmp_source_dir}/Projects/B-L475E-IOT01A/Examples/BSP/Inc)
 

@@ -38,6 +38,7 @@ if(INCLUDE__STM32CUBEL4)
 		set(PROJECT_SOURCES ${PROJECT_SOURCES} ${_tmp_source_dir}/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_uart_ex.c)
 		set(PROJECT_SOURCES ${PROJECT_SOURCES} ${_tmp_source_dir}/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_tim.c)
 		set(PROJECT_SOURCES ${PROJECT_SOURCES} ${_tmp_source_dir}/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_tim_ex.c)
+		set(PROJECT_SOURCES ${PROJECT_SOURCES} ${_tmp_source_dir}/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_qspi.c)
 
 		if(UBINOS__BSP__BOARD_MODEL STREQUAL "STM32L475EIOT01")
 
@@ -55,6 +56,7 @@ if(INCLUDE__STM32CUBEL4)
 			set(PROJECT_SOURCES ${PROJECT_SOURCES} ${_tmp_source_dir}/Drivers/BSP/B-L475E-IOT01/stm32l475e_iot01_magneto.c)
 			set(PROJECT_SOURCES ${PROJECT_SOURCES} ${_tmp_source_dir}/Drivers/BSP/B-L475E-IOT01/stm32l475e_iot01_psensor.c)
 			set(PROJECT_SOURCES ${PROJECT_SOURCES} ${_tmp_source_dir}/Drivers/BSP/B-L475E-IOT01/stm32l475e_iot01_tsensor.c)
+			set(PROJECT_SOURCES ${PROJECT_SOURCES} ${_tmp_source_dir}/Drivers/BSP/B-L475E-IOT01/stm32l475e_iot01_qspi.c)
 
 			set(PROJECT_SOURCES ${PROJECT_SOURCES} ${_tmp_source_dir}/Drivers/BSP/Components/hts221/hts221.c)
 			set(PROJECT_SOURCES ${PROJECT_SOURCES} ${_tmp_source_dir}/Drivers/BSP/Components/lis3mdl/lis3mdl.c)
