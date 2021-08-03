@@ -32,6 +32,8 @@
 
 /* Definition for DTTY_STM32_UART */
 
+#if (UBINOS__BSP__STM32_DTTY_USARTx_INSTANCE_NUMBER == 1)
+
 #define DTTY_STM32_UART                         USART1
 #define DTTY_STM32_UART_HANDLE                  huart1
 
@@ -51,6 +53,12 @@
 
 #define DTTY_STM32_UART_IRQn                    USART1_IRQn
 #define DTTY_STM32_UART_IRQHandler              USART1_IRQHandler
+
+#else
+
+#error "Unsupported UBINOS__BSP__STM32_DTTY_USARTx_INSTANCE_NUMBER"
+
+#endif
 
 extern UART_HandleTypeDef DTTY_STM32_UART_HANDLE;
 

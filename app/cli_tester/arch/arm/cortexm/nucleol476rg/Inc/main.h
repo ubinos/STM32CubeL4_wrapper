@@ -32,6 +32,8 @@
 
 /* Definition for DTTY_STM32_UART */
 
+#if (UBINOS__BSP__STM32_DTTY_USARTx_INSTANCE_NUMBER == 2)
+
 #define DTTY_STM32_UART                         USART2
 #define DTTY_STM32_UART_HANDLE                  huart2
 
@@ -51,6 +53,34 @@
 
 #define DTTY_STM32_UART_IRQn                    USART2_IRQn
 #define DTTY_STM32_UART_IRQHandler              USART2_IRQHandler
+
+#elif (UBINOS__BSP__STM32_DTTY_USARTx_INSTANCE_NUMBER == 3)
+
+#define DTTY_STM32_UART                         USART3
+#define DTTY_STM32_UART_HANDLE                  huart3
+
+#define DTTY_STM32_UART_CLK_ENABLE()            __HAL_RCC_USART3_CLK_ENABLE()
+#define DTTY_STM32_UART_RX_GPIO_CLK_ENABLE()    __HAL_RCC_GPIOC_CLK_ENABLE()
+#define DTTY_STM32_UART_TX_GPIO_CLK_ENABLE()    __HAL_RCC_GPIOC_CLK_ENABLE()
+
+#define DTTY_STM32_UART_FORCE_RESET()           __HAL_RCC_USART3_FORCE_RESET()
+#define DTTY_STM32_UART_RELEASE_RESET()         __HAL_RCC_USART3_RELEASE_RESET()
+
+#define DTTY_STM32_UART_TX_Pin                  GPIO_PIN_4
+#define DTTY_STM32_UART_TX_GPIO_Port            GPIOC
+#define DTTY_STM32_UART_TX_AF                   GPIO_AF7_USART3
+#define DTTY_STM32_UART_RX_Pin                  GPIO_PIN_5
+#define DTTY_STM32_UART_RX_GPIO_Port            GPIOC
+#define DTTY_STM32_UART_RX_AF                   GPIO_AF7_USART3
+
+#define DTTY_STM32_UART_IRQn                    USART3_IRQn
+#define DTTY_STM32_UART_IRQHandler              USART3_IRQHandler
+
+#else
+
+#error "Unsupported UBINOS__BSP__STM32_DTTY_USARTx_INSTANCE_NUMBER"
+
+#endif
 
 extern UART_HandleTypeDef DTTY_STM32_UART_HANDLE;
 
