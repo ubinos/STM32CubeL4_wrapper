@@ -51,7 +51,6 @@ static void rootfunc(void *arg)
 {
     int r;
 
-    HAL_Init();
     ubik_settickhookfunc(HAL_IncTick);
 
     /* Configure the User LED */
