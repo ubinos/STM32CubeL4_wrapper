@@ -1,4 +1,5 @@
 set(INCLUDE__STM32CUBEL4 TRUE)
+set(PROJECT_UBINOS_LIBRARIES ${PROJECT_UBINOS_LIBRARIES} stm32cubel4_wrapper)
 
 set_cache_default(STM32CUBEL4__BASE_DIR "${PROJECT_LIBRARY_DIR}/stm32cubel4_v01.15.00" STRING "stm32cubel4 project base dir")
 
