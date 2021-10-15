@@ -10,6 +10,7 @@ set_cache(UBINOS__UBIK__TICK_TYPE "RTC" STRING)
 
 set_cache(UBINOS__BSP__DTTY_TYPE "EXTERNAL" STRING)
 set_cache(STM32CUBEL4__DTTY_STM32_UART_ENABLE TRUE BOOL)
+set_cache(STM32CUBEL4__USE_HAL_QSPI TRUE BOOL)
 
 include(${PROJECT_UBINOS_DIR}/config/ubinos_stm32l475eiot01.cmake)
 include(${PROJECT_LIBRARY_DIR}/stm32cubel4_wrapper/config/stm32cubel4.cmake)
