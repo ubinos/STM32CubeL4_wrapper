@@ -6,7 +6,6 @@
 
 #include <ubinos.h>
 
-#if (INCLUDE__APP__cli_tester == 1)
 #if (UBINOS__BSP__BOARD_MODEL == UBINOS__BSP__BOARD_MODEL__NUCLEOL476RG)
 #if (UBINOS__BSP__DTTY_TYPE == UBINOS__BSP__DTTY_TYPE__EXTERNAL)
 
@@ -61,5 +60,4 @@ void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart)
 
 #endif /* (UBINOS__BSP__DTTY_TYPE == UBINOS__BSP__DTTY_TYPE__EXTERNAL) */
 #endif /* (UBINOS__BSP__BOARD_MODEL == UBINOS__BSP__BOARD_MODEL__NUCLEOL476RG) */
-#endif /* (INCLUDE__APP__cli_tester == 1) */
 
