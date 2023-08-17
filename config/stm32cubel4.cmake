@@ -11,6 +11,8 @@ set_cache_default(STM32CUBEL4__USE_STM32L475_DISCOVERY FALSE BOOL "Use STM32 Cub
 
 set_cache_default(STM32CUBEL4__USE_HAL_QSPI FALSE BOOL "Use STM32 Cube L4 HAL QSPI Driver")
 
+set_cache_default(STM32CUBEL4__USE_HAL_USBD FALSE BOOL "Use STM32 Cube L4 HAL USB Device Driver")
+
 ####
 
 set(_tmp_all_flags "")

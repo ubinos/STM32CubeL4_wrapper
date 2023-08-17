@@ -15,5 +15,7 @@
 
 #cmakedefine01 STM32CUBEL4__USE_HAL_QSPI
 
+#cmakedefine01 STM32CUBEL4__USE_HAL_USBD
+
 #endif /* (INCLUDE__STM32CUBEL4 == 1) */
 
