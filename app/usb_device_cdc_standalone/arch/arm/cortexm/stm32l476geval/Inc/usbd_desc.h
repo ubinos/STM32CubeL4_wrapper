@@ -1,8 +1,8 @@
 /**
   ******************************************************************************
-  * @file    USB_Device/CDC_Standalone/Inc/stm32l4xx_it.h
+  * @file    USB_Device/CDC_Standalone/Inc/usbd_desc.h
   * @author  MCD Application Team
-  * @brief   This file contains the headers of the interrupt handlers.
+  * @brief   Header for usbd_desc.c module
   ******************************************************************************
   * @attention
   *
@@ -18,32 +18,23 @@
   */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __STM32L4xx_IT_H
-#define __STM32L4xx_IT_H
-
-#ifdef __cplusplus
-extern "C" {
-#endif
+#ifndef __USBD_DESC_H
+#define __USBD_DESC_H
 
 /* Includes ------------------------------------------------------------------*/
-#include "main.h"
+#include "usbd_def.h"
+
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
+#define  DEVICE_ID1                  (UID_BASE)
+#define  DEVICE_ID2                  (UID_BASE+0x4)
+#define  DEVICE_ID3                  (UID_BASE+0x8)
+
+#define  USB_SIZ_STRING_SERIAL       0x1A
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
+extern USBD_DescriptorsTypeDef VCP_Desc;
 
-/* Interrupt Handler */
-void DTTY_STM32_UART_IRQHandler(void);
-void SysTick_Handler(void);
-void OTG_FS_IRQHandler(void);
-void USARTx_DMA_TX_IRQHandler(void);
-void USARTx_IRQHandler(void);
-void TIMx_IRQHandler(void);
-
-#ifdef __cplusplus
-}
-#endif
-
-#endif /* __STM32L4xx_IT_H */
-
+#endif /* __USBD_DESC_H */
+ 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

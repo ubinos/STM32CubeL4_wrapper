@@ -10,11 +10,15 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <main.h>
+
 static void root_func(void *arg);
 
 static void cli_help_hook_func();
 static int cli_hook_func(char *str, int len, void *arg);
 static int my_command(char *str, int len, void *arg);
+
+extern void usb_init();
 
 int appmain(int argc, char *argv[])
 {
@@ -51,6 +55,25 @@ static void root_func(void *arg)
 
     r = task_create(NULL, cli_main, NULL, task_getmiddlepriority(), 0, "cli_main");
     ubi_assert(r == 0);
+
+  /* Enable Power Clock*/
+  __HAL_RCC_PWR_CLK_ENABLE();
+  
+  /* enable USB power on Pwrctrl CR2 register */
+  HAL_PWREx_EnableVddUSB();
+
+  /* Init Device Library */
+  USBD_Init(&USBD_Device, &VCP_Desc, 0);
+  
+  /* Add Supported Class */
+  USBD_RegisterClass(&USBD_Device, USBD_CDC_CLASS);
+  
+  /* Add CDC Interface Class */
+  USBD_CDC_RegisterInterface(&USBD_Device, &USBD_CDC_fops);
+  
+  /* Start Device Process */
+  USBD_Start(&USBD_Device);
+
 }
 
 static int cli_hook_func(char *str, int len, void *arg)
