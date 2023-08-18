@@ -39,8 +39,11 @@
 
 /* Exported macro ------------------------------------------------------------*/
 /* Memory management macros */
-#define USBD_malloc               malloc
-#define USBD_free                 free
+extern void * usbd_cdc_handle_ptr;
+// #define USBD_malloc               malloc
+// #define USBD_free                 free
+#define USBD_malloc(size)         (usbd_cdc_handle_ptr)
+#define USBD_free(ptr)            (void)(ptr)
 #define USBD_memset               memset
 #define USBD_memcpy               memcpy
 
