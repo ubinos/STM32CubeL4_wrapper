@@ -105,11 +105,43 @@ static void cli_help_hook_func()
     printf("mc                                      : my command\n");
 }
 
+#define TX_BUFFER_SIZE_MAX 1024
+uint8_t tx_buffer[TX_BUFFER_SIZE_MAX];
+
 static int my_command(char *str, int len, void *arg)
 {
     printf("\n");
     printf("done\n");
 
+    for (int i = 0; i < TX_BUFFER_SIZE_MAX; i++)
+    {
+        tx_buffer[i] = i % 10 + 'a';
+    }
+
+    USBD_CDC_SetTxBuffer(&USBD_Device, (uint8_t*)tx_buffer, 1);
+    if(USBD_CDC_TransmitPacket(&USBD_Device) == USBD_OK)
+    {
+        printf("ok\r\n");
+    }
+    else
+    {
+        printf("fail\r\n");
+    }
+
+    for (int i = 0; i < 1000; )
+    {
+        USBD_CDC_SetTxBuffer(&USBD_Device, (uint8_t*)tx_buffer, TX_BUFFER_SIZE_MAX);
+        if(USBD_CDC_TransmitPacket(&USBD_Device) == USBD_OK)
+        {
+            i++;
+        }
+        else
+        {
+            // printf("fail\r\n");
+            // task_sleepms(10);
+        }
+    }
+    printf("ok\r\n");
+
     return 0;
 }
-
