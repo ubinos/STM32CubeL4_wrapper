@@ -40,7 +40,7 @@ static void root_func(void *arg)
 
     printf("\n\n\n");
     printf("================================================================================\n");
-    printf("command line interface tester (build time: %s %s)\n", __TIME__, __DATE__);
+    printf("usb_device_cdc_standalone (build time: %s %s)\n", __TIME__, __DATE__);
     printf("================================================================================\n");
     printf("\n");
 
@@ -111,7 +111,6 @@ uint8_t tx_buffer[TX_BUFFER_SIZE_MAX];
 static int my_command(char *str, int len, void *arg)
 {
     printf("\n");
-    printf("done\n");
 
     for (int i = 0; i < TX_BUFFER_SIZE_MAX; i++)
     {
@@ -121,11 +120,11 @@ static int my_command(char *str, int len, void *arg)
     USBD_CDC_SetTxBuffer(&USBD_Device, (uint8_t*)tx_buffer, 1);
     if(USBD_CDC_TransmitPacket(&USBD_Device) == USBD_OK)
     {
-        printf("ok\r\n");
+        printf("ok\n");
     }
     else
     {
-        printf("fail\r\n");
+        printf("fail\n");
     }
 
     for (int i = 0; i < 1000; )
@@ -141,7 +140,7 @@ static int my_command(char *str, int len, void *arg)
             // task_sleepms(10);
         }
     }
-    printf("ok\r\n");
+    printf("ok\n");
 
     return 0;
 }
