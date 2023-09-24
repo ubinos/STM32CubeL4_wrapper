@@ -10,6 +10,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <main.h>
+
 static void root_func(void *arg);
 
 static void cli_help_hook_func();
@@ -51,6 +53,62 @@ static void root_func(void *arg)
 
     r = task_create(NULL, cli_main, NULL, task_getmiddlepriority(), 0, "cli_main");
     ubi_assert(r == 0);
+
+  /* Initialize DFSDM channels and filter for record */
+  DFSDM_Init();
+
+  /* Initialize playback */
+  Playback_Init();
+
+  /* Start DFSDM conversions */
+  if(HAL_OK != HAL_DFSDM_FilterRegularStart_DMA(&DfsdmRightFilterHandle, RightRecBuff, 2048))
+  {
+    bsp_abortsystem();
+  }
+  if(HAL_OK != HAL_DFSDM_FilterRegularStart_DMA(&DfsdmLeftFilterHandle, LeftRecBuff, 2048))
+  {
+    bsp_abortsystem();
+  }
+  
+  /* Start loopback */
+  while(1)
+  {
+    if((DmaLeftRecHalfBuffCplt == 1) && (DmaRightRecHalfBuffCplt == 1))
+    {
+      /* Store values on Play buff */
+      for(uint32_t i = 0; i < 1024; i++)
+      {
+        PlayBuff[2*i]     = SaturaLH((LeftRecBuff[i] >> 8), -32768, 32767);
+        PlayBuff[(2*i)+1] = SaturaLH((RightRecBuff[i] >> 8), -32768, 32767);
+      }
+      if(PlaybackStarted == 0)
+      {
+        if(0 != audio_drv->Play(AUDIO_I2C_ADDRESS, (uint16_t *) &PlayBuff[0], 4096))
+        {
+          bsp_abortsystem();
+        }
+        if(HAL_OK != HAL_SAI_Transmit_DMA(&SaiHandle, (uint8_t *) &PlayBuff[0], 4096))
+        {
+          bsp_abortsystem();
+        }
+        PlaybackStarted = 1;
+      }      
+      DmaLeftRecHalfBuffCplt  = 0;
+      DmaRightRecHalfBuffCplt = 0;
+    }
+    if((DmaLeftRecBuffCplt == 1) && (DmaRightRecBuffCplt == 1))
+    {
+      /* Store values on Play buff */
+      for(uint32_t i = 1024; i < 2048; i++)
+      {
+        PlayBuff[2*i]     = SaturaLH((LeftRecBuff[i] >> 8), -32768, 32767);
+        PlayBuff[(2*i)+1] = SaturaLH((RightRecBuff[i] >> 8), -32768, 32767);
+      }
+      DmaLeftRecBuffCplt  = 0;
+      DmaRightRecBuffCplt = 0;
+    }
+    // task_sleep(1);
+  }
 }
 
 static int cli_hook_func(char *str, int len, void *arg)

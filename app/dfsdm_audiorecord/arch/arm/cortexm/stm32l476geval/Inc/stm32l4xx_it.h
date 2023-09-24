@@ -34,6 +34,10 @@ extern "C" {
 /* Interrupt Handler */
 void DTTY_STM32_UART_IRQHandler(void);
 
+void DMA1_Channel4_IRQHandler(void);
+void DMA1_Channel5_IRQHandler(void);
+void DMA2_Channel2_IRQHandler(void);
+
 #ifdef __cplusplus
 }
 #endif

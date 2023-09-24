@@ -24,6 +24,8 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32l4xx_hal.h"
 #include "stm32l476g_eval.h"
+#include "audio.h"
+#include "wm8994/wm8994.h"
 
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
@@ -65,6 +67,25 @@ extern UART_HandleTypeDef DTTY_STM32_UART_HANDLE;
 void dtty_stm32_uart_rx_callback(void);
 void dtty_stm32_uart_tx_callback(void);
 void dtty_stm32_uart_err_callback(void);
+
+#define SaturaLH(N, L, H) (((N)<(L))?(L):(((N)>(H))?(H):(N)))
+
+void DFSDM_Init(void);
+void Playback_Init(void);
+
+extern DFSDM_Filter_HandleTypeDef   DfsdmLeftFilterHandle;
+extern DFSDM_Filter_HandleTypeDef   DfsdmRightFilterHandle;
+extern SAI_HandleTypeDef            SaiHandle;
+extern DMA_HandleTypeDef            hSaiDma;
+extern AUDIO_DrvTypeDef            *audio_drv;
+extern int32_t                      LeftRecBuff[2048];
+extern int32_t                      RightRecBuff[2048];
+extern int16_t                      PlayBuff[4096];
+extern uint32_t                     DmaLeftRecHalfBuffCplt;
+extern uint32_t                     DmaLeftRecBuffCplt;
+extern uint32_t                     DmaRightRecHalfBuffCplt;
+extern uint32_t                     DmaRightRecBuffCplt;
+extern uint32_t                     PlaybackStarted;
 
 #endif /* __MAIN_H */
 
