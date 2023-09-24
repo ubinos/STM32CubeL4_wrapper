@@ -13,6 +13,10 @@ set_cache_default(STM32CUBEL4__USE_HAL_QSPI FALSE BOOL "Use STM32 Cube L4 HAL QS
 
 set_cache_default(STM32CUBEL4__USE_HAL_USBD FALSE BOOL "Use STM32 Cube L4 HAL USB Device Driver")
 
+set_cache_default(STM32CUBEL4__USE_WM8994 FALSE BOOL "Use STM32 Cube L4 wm8994 Driver")
+
+set_cache_default(STM32CUBEL4__USE_STM32L476G_EVAL_REVB FALSE BOOL "Use STM32L476G_EVAL_REVB")
+
 ####
 
 set(_tmp_all_flags "")
@@ -27,6 +31,10 @@ endif()
 
 if(STM32CUBEL4__USE_STM32L475_DISCOVERY)
     set(_tmp_all_flags "${_tmp_all_flags} -DUSE_STM32L475_DISCOVERY")
+endif()
+
+if(STM32CUBEL4__USE_STM32L476G_EVAL_REVB)
+    set(_tmp_all_flags "${_tmp_all_flags} -DUSE_STM32L476G_EVAL_REVB")
 endif()
 
 set(CMAKE_ASM_FLAGS "${_tmp_all_flags} ${CMAKE_ASM_FLAGS}")
