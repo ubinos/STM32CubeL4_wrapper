@@ -50,7 +50,7 @@ static void root_func(void *arg)
     r = cli_sethelphookfunc(cli_help_hook_func);
     ubi_assert(r == 0);
 
-    r = cli_setprompt("cli_tester> ");
+    r = cli_setprompt("usb_device_cdc_standalone> ");
     ubi_assert(r == 0);
 
     r = task_create(NULL, cli_main, NULL, task_getmiddlepriority(), 0, "cli_main");
