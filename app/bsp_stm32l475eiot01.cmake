@@ -28,8 +28,8 @@ include_directories(${_tmp_source_dir}/arch/arm/cortexm/stm32l475eiot01/Inc)
 file(GLOB_RECURSE _tmp_sources
     "${_tmp_source_dir}/*.c"
     "${_tmp_source_dir}/*.cpp"
-    "${_tmp_source_dir}/*.S"
-    "${_tmp_source_dir}/*.s")
+    "${_tmp_source_dir}/*.cc"
+    "${_tmp_source_dir}/*.S")
 
 set(PROJECT_APP_SOURCES ${PROJECT_APP_SOURCES} ${_tmp_sources})
 
