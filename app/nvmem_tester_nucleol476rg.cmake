@@ -17,8 +17,7 @@ set_cache(UBINOS__UBIK__TICK_TYPE "RTC" STRING)
 
 set_cache(UBINOS__BSP__DTTY_TYPE "EXTERNAL" STRING)
 set_cache(STM32CUBEL4__DTTY_STM32_UART_ENABLE TRUE BOOL)
-
-set_cache(UBINOS__BSP__STM32_DTTY_USARTx_INSTANCE_NUMBER "3" STRING)
+# set_cache(UBINOS__BSP__STM32_DTTY_USARTx_INSTANCE_NUMBER "3" STRING)
 
 include(${PROJECT_UBINOS_DIR}/config/ubinos_nucleol476rg.cmake)
 include(${PROJECT_LIBRARY_DIR}/stm32cubel4_wrapper/config/stm32cubel4.cmake)
