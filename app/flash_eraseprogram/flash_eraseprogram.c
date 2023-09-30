@@ -15,8 +15,6 @@
 
 #include <ubinos.h>
 
-#if (INCLUDE__APP__myflash_eraseprogram == 1)
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -69,7 +67,7 @@ static void rootfunc(void *arg)
 
     printf("\n\n\n");
     printf("================================================================================\n");
-    printf("myflash_eraseprogram (build time: %s %s)\n", __TIME__, __DATE__);
+    printf("flash_eraseprogram (build time: %s %s)\n", __TIME__, __DATE__);
     printf("================================================================================\n");
     printf("\n");
 
@@ -293,6 +291,4 @@ static uint32_t GetBank(uint32_t Addr)
 
   return bank;
 }
-
-#endif /* (INCLUDE__APP__myflash_eraseprogram == 1) */
 

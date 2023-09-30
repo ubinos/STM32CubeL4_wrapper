@@ -4,7 +4,7 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
-# ubinos_config_info {"name_base": "myflash_eraseprogram", "build_type": "cmake_ubinos", "app": true}
+# ubinos_config_info {"name_base": "flash_eraseprogram", "build_type": "cmake_ubinos", "app": true}
 
 set_cache(UBINOS__BSP__LINK_MEMMAP_FLASH_ORIGIN  0x08000000 STRING)
 set_cache(UBINOS__BSP__LINK_MEMMAP_FLASH_LENGTH  0x00080000 STRING)
@@ -25,9 +25,9 @@ include(${PROJECT_LIBRARY_DIR}/stm32cubel4_extension/config/stm32cubel4_extensio
 ####
 
 set(INCLUDE__APP TRUE)
-set(APP__NAME "myflash_eraseprogram")
+set(APP__NAME "flash_eraseprogram")
 
-get_filename_component(_tmp_source_dir "${CMAKE_CURRENT_LIST_DIR}/myflash_eraseprogram" ABSOLUTE)
+get_filename_component(_tmp_source_dir "${CMAKE_CURRENT_LIST_DIR}/flash_eraseprogram" ABSOLUTE)
 
 file(GLOB_RECURSE _tmp_sources
     "${_tmp_source_dir}/*.c"

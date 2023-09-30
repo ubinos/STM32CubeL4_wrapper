@@ -15,8 +15,6 @@
 
 #include <ubinos.h>
 
-#if (INCLUDE__APP__mybsp == 1)
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -76,7 +74,7 @@ static void rootfunc(void *arg)
     //
     printf("\n\n\n");
     printf("================================================================================\n");
-    printf("mybsp (build time: %s %s)\n", __TIME__, __DATE__);
+    printf("bsp (build time: %s %s)\n", __TIME__, __DATE__);
     printf("================================================================================\n");
     printf("\n");
 
@@ -168,6 +166,4 @@ uint32_t Serial_Scanf(uint32_t value)
     }
     return tmp;
 }
-
-#endif /* (INCLUDE__APP__mybsp == 1) */
 

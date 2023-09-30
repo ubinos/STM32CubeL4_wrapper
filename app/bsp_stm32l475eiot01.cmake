@@ -4,7 +4,7 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
-# ubinos_config_info {"name_base": "mybsp", "build_type": "cmake_ubinos", "app": true}
+# ubinos_config_info {"name_base": "bsp", "build_type": "cmake_ubinos", "app": true}
 
 set_cache(UBINOS__UBIK__TICK_TYPE "RTC" STRING)
 
@@ -19,9 +19,9 @@ include(${PROJECT_LIBRARY_DIR}/stm32cubel4_extension/config/stm32cubel4_extensio
 ####
 
 set(INCLUDE__APP TRUE)
-set(APP__NAME "mybsp")
+set(APP__NAME "bsp")
 
-get_filename_component(_tmp_source_dir "${CMAKE_CURRENT_LIST_DIR}/mybsp" ABSOLUTE)
+get_filename_component(_tmp_source_dir "${CMAKE_CURRENT_LIST_DIR}/bsp" ABSOLUTE)
 
 include_directories(${_tmp_source_dir}/arch/arm/cortexm/stm32l475eiot01/Inc)
 

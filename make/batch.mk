@@ -68,7 +68,7 @@
 	@echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
 	@echo ""
 	@echo ""
-	make -f makefile.mk $@ CONFIG_DIR=../app CONFIG_NAME=myflash_eraseprogram_nucleol476rg
+	make -f makefile.mk $@ CONFIG_DIR=../app CONFIG_NAME=flash_eraseprogram_nucleol476rg
 	@echo ""
 	@echo ""
 	@echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
@@ -82,7 +82,7 @@
 	@echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
 	@echo ""
 	@echo ""
-	make -f makefile.mk $@ CONFIG_DIR=../app CONFIG_NAME=mybsp_stm32l475eiot01
+	make -f makefile.mk $@ CONFIG_DIR=../app CONFIG_NAME=bsp_stm32l475eiot01
 	@echo ""
 	@echo ""
 
