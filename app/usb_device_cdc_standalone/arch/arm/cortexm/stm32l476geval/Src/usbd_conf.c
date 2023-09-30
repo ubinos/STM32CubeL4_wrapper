@@ -17,6 +17,10 @@
   ******************************************************************************
   */
 
+#include <ubinos.h>
+
+#if (UBINOS__BSP__BOARD_MODEL == UBINOS__BSP__BOARD_MODEL__STM32L476GEVAL)
+
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 
@@ -441,5 +445,7 @@ void USBD_LL_Delay(uint32_t Delay)
 {
   HAL_Delay(Delay);
 }
+
+#endif /* (UBINOS__BSP__BOARD_MODEL == UBINOS__BSP__BOARD_MODEL__STM32L476GEVAL) */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

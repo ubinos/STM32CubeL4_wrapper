@@ -1,10 +1,11 @@
 #include <ubinos.h>
 
 #if (UBINOS__BSP__BOARD_MODEL == UBINOS__BSP__BOARD_MODEL__STM32L476GEVAL)
-#if (UBINOS__BSP__DTTY_TYPE == UBINOS__BSP__DTTY_TYPE__EXTERNAL)
 
 #include "main.h"
 #include "stm32l4xx_it.h"
+
+#if (UBINOS__BSP__DTTY_TYPE == UBINOS__BSP__DTTY_TYPE__EXTERNAL)
 
 /**
  * @brief  This function handles DTTY_STM32_UART interrupt request.
@@ -15,6 +16,8 @@ void DTTY_STM32_UART_IRQHandler(void)
 {
     HAL_UART_IRQHandler(&DTTY_STM32_UART_HANDLE);
 }
+
+#endif /* (UBINOS__BSP__DTTY_TYPE == UBINOS__BSP__DTTY_TYPE__EXTERNAL) */
 
 #if (UBINOS__UBIK__TICK_TYPE == UBINOS__UBIK__TICK_TYPE__RTC)
 
@@ -50,8 +53,5 @@ void TIMx_IRQHandler(void)
   HAL_TIM_IRQHandler(&TIM_HANDLE);
 }
 
-
-
-#endif /* (UBINOS__BSP__DTTY_TYPE == UBINOS__BSP__DTTY_TYPE__EXTERNAL) */
 #endif /* (UBINOS__BSP__BOARD_MODEL == UBINOS__BSP__BOARD_MODEL__STM32L476GEVAL) */
 

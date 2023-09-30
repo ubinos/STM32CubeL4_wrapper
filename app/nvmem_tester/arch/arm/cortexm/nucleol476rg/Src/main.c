@@ -6,11 +6,11 @@
 
 #include <ubinos.h>
 
-#if (INCLUDE__APP__nvmem_tester == 1)
 #if (UBINOS__BSP__BOARD_MODEL == UBINOS__BSP__BOARD_MODEL__NUCLEOL476RG)
-#if (UBINOS__BSP__DTTY_TYPE == UBINOS__BSP__DTTY_TYPE__EXTERNAL)
 
 #include "main.h"
+
+#if (UBINOS__BSP__DTTY_TYPE == UBINOS__BSP__DTTY_TYPE__EXTERNAL)
 
 UART_HandleTypeDef DTTY_STM32_UART_HANDLE;
 
@@ -80,6 +80,6 @@ void assert_failed(uint8_t *file, uint32_t line)
 #endif
 
 #endif /* (UBINOS__BSP__DTTY_TYPE == UBINOS__BSP__DTTY_TYPE__EXTERNAL) */
+
 #endif /* (UBINOS__BSP__BOARD_MODEL == UBINOS__BSP__BOARD_MODEL__NUCLEOL476RG) */
-#endif /* (INCLUDE__APP__nvmem_tester == 1) */
 

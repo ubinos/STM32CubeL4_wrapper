@@ -17,6 +17,10 @@
   ******************************************************************************
   */
 
+#include <ubinos.h>
+
+#if (UBINOS__BSP__BOARD_MODEL == UBINOS__BSP__BOARD_MODEL__STM32L476GEVAL)
+
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 
@@ -423,5 +427,7 @@ static void Error_Handler(void)
 {
   /* Add your own code here */
 }
+
+#endif /* (UBINOS__BSP__BOARD_MODEL == UBINOS__BSP__BOARD_MODEL__STM32L476GEVAL) */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

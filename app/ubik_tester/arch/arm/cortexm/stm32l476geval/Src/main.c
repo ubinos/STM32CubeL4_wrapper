@@ -6,11 +6,11 @@
 
 #include <ubinos.h>
 
-#if (INCLUDE__APP__ubik_tester == 1)
 #if (UBINOS__BSP__BOARD_MODEL == UBINOS__BSP__BOARD_MODEL__STM32L476GEVAL)
-#if (UBINOS__BSP__DTTY_TYPE == UBINOS__BSP__DTTY_TYPE__EXTERNAL)
 
 #include "main.h"
+
+#if (UBINOS__BSP__DTTY_TYPE == UBINOS__BSP__DTTY_TYPE__EXTERNAL)
 
 UART_HandleTypeDef DTTY_STM32_UART_HANDLE;
 
@@ -60,6 +60,6 @@ void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart)
 }
 
 #endif /* (UBINOS__BSP__DTTY_TYPE == UBINOS__BSP__DTTY_TYPE__EXTERNAL) */
+
 #endif /* (UBINOS__BSP__BOARD_MODEL == UBINOS__BSP__BOARD_MODEL__STM32L476GEVAL) */
-#endif /* (INCLUDE__APP__ubik_tester == 1) */
 

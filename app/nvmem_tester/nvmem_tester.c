@@ -15,8 +15,6 @@
 
 #include <ubinos.h>
 
-#if (INCLUDE__APP__nvmem_tester == 1)
-
 #include <ubinos/ubidrv/nvmem.h>
 
 #include <stdio.h>
@@ -108,6 +106,4 @@ static void rootfunc(void *arg)
         printf("\n");
     }
 }
-
-#endif /* (INCLUDE__APP__nvmem_tester == 1) */
 
