@@ -44,7 +44,7 @@ void SysTick_Handler(void)
   */
 void DMA1_Channel4_IRQHandler(void)
 {
-  HAL_DMA_IRQHandler(&hLeftDma);
+    HAL_DMA_IRQHandler(&hLeftDma);
 }
 
 /**
@@ -54,7 +54,7 @@ void DMA1_Channel4_IRQHandler(void)
   */
 void DMA1_Channel5_IRQHandler(void)
 {
-  HAL_DMA_IRQHandler(&hRightDma);
+    HAL_DMA_IRQHandler(&hRightDma);
 }
 
 /**
@@ -64,7 +64,7 @@ void DMA1_Channel5_IRQHandler(void)
   */
 void DMA2_Channel2_IRQHandler(void)
 { 
-  HAL_DMA_IRQHandler(SaiHandle.hdmatx);
+    HAL_DMA_IRQHandler(SaiHandle.hdmatx);
 }
 
 #endif /* (UBINOS__BSP__BOARD_MODEL == UBINOS__BSP__BOARD_MODEL__STM32L476GEVAL) */
