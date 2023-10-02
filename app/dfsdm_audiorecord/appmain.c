@@ -107,7 +107,8 @@ static void root_func(void *arg)
             DmaLeftRecBuffCplt  = 0;
             DmaRightRecBuffCplt = 0;
         }
-        // task_sleep(1);
+
+        sem_take_timedms(dfsm_buf_sem, 100);
     }
 }
 

@@ -81,6 +81,8 @@ uint32_t                     DmaRightRecHalfBuffCplt = 0;
 uint32_t                     DmaRightRecBuffCplt     = 0;
 uint32_t                     PlaybackStarted         = 0;
 
+sem_pt dfsm_buf_sem = NULL;
+
 /**
   * @brief  DFSDM channels and filter initialization
   * @param  None
@@ -88,6 +90,11 @@ uint32_t                     PlaybackStarted         = 0;
   */
 void DFSDM_Init(void)
 {
+  int r;
+
+  r = semb_create(&dfsm_buf_sem);
+  ubi_assert(r == 0);
+
   /* Initialize channel 4 (left channel)*/
   __HAL_DFSDM_CHANNEL_RESET_HANDLE_STATE(&DfsdmLeftChannelHandle);
   DfsdmLeftChannelHandle.Instance                      = DFSDM1_Channel4;
@@ -405,6 +412,8 @@ void HAL_DFSDM_FilterRegConvHalfCpltCallback(DFSDM_Filter_HandleTypeDef *hdfsdm_
   {
     DmaRightRecHalfBuffCplt = 1;
   }
+
+  sem_give(dfsm_buf_sem);
 }
 
 /**
@@ -424,6 +433,8 @@ void HAL_DFSDM_FilterRegConvCpltCallback(DFSDM_Filter_HandleTypeDef *hdfsdm_filt
   {
     DmaRightRecBuffCplt = 1;
   }
+
+  sem_give(dfsm_buf_sem);
 }
 
 #endif /* (UBINOS__BSP__BOARD_MODEL == UBINOS__BSP__BOARD_MODEL__STM32L476GEVAL) */

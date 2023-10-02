@@ -21,6 +21,8 @@
 #ifndef __MAIN_H
 #define __MAIN_H
 
+#include <ubinos.h>
+
 /* Includes ------------------------------------------------------------------*/
 #include "stm32l4xx_hal.h"
 #include "stm32l476g_eval.h"
@@ -86,6 +88,8 @@ extern uint32_t                     DmaLeftRecBuffCplt;
 extern uint32_t                     DmaRightRecHalfBuffCplt;
 extern uint32_t                     DmaRightRecBuffCplt;
 extern uint32_t                     PlaybackStarted;
+
+extern sem_pt dfsm_buf_sem;
 
 #endif /* __MAIN_H */
 
