@@ -32,12 +32,20 @@ extern "C" {
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
 
+#if (UBINOS__BSP__DTTY_TYPE == UBINOS__BSP__DTTY_TYPE__EXTERNAL)
+
+#if (STM32CUBEL4__DTTY_STM32_UART_ENABLE == 1)
+
 /* Interrupt Handler */
 void DTTY_STM32_UART_IRQHandler(void);
+
+#endif /* (STM32CUBEL4__DTTY_STM32_UART_ENABLE == 1) */
+
+#endif /* (UBINOS__BSP__DTTY_TYPE == UBINOS__BSP__DTTY_TYPE__EXTERNAL) */
+
 void SysTick_Handler(void);
+
 void OTG_FS_IRQHandler(void);
-void USARTx_DMA_TX_IRQHandler(void);
-void USARTx_IRQHandler(void);
 void TIMx_IRQHandler(void);
 
 #ifdef __cplusplus

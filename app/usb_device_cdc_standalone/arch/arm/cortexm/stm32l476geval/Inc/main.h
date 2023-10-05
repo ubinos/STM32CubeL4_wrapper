@@ -36,10 +36,11 @@
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
 
-/* Definition for DTTY_STM32_UART */
-
 #if (UBINOS__BSP__DTTY_TYPE == UBINOS__BSP__DTTY_TYPE__EXTERNAL)
+
 #if (STM32CUBEL4__DTTY_STM32_UART_ENABLE == 1)
+
+/* Definition for DTTY_STM32_UART */
 
 #if (UBINOS__BSP__STM32_DTTY_USARTx_INSTANCE_NUMBER == 1)
 
@@ -76,6 +77,7 @@ void dtty_stm32_uart_tx_callback(void);
 void dtty_stm32_uart_err_callback(void);
 
 #endif /* (STM32CUBEL4__DTTY_STM32_UART_ENABLE == 1) */
+
 #endif /* (UBINOS__BSP__DTTY_TYPE == UBINOS__BSP__DTTY_TYPE__EXTERNAL) */
 
 #if (STM32CUBEL4__USE_HAL_USBD == 1)

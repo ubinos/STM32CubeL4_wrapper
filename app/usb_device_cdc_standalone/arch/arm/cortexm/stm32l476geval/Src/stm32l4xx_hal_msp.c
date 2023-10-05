@@ -8,6 +8,8 @@
 
 #if (UBINOS__BSP__DTTY_TYPE == UBINOS__BSP__DTTY_TYPE__EXTERNAL)
 
+#if (STM32CUBEL4__DTTY_STM32_UART_ENABLE == 1)
+
 /**
  * @brief UART MSP Initialization
  *        This function configures the hardware resources used in this example:
@@ -73,6 +75,8 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef *huart)
     /*##-3- Disable the NVIC for USART TC ###########################################*/
     HAL_NVIC_DisableIRQ(DTTY_STM32_UART_IRQn);
 }
+
+#endif /* (STM32CUBEL4__DTTY_STM32_UART_ENABLE == 1) */
 
 #endif /* (UBINOS__BSP__DTTY_TYPE == UBINOS__BSP__DTTY_TYPE__EXTERNAL) */
 
