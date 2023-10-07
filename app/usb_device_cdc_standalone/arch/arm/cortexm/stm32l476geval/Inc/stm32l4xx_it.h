@@ -46,7 +46,6 @@ void DTTY_STM32_UART_IRQHandler(void);
 void SysTick_Handler(void);
 
 void OTG_FS_IRQHandler(void);
-void TIMx_IRQHandler(void);
 
 #ifdef __cplusplus
 }

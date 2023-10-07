@@ -84,11 +84,9 @@ void dtty_stm32_uart_err_callback(void);
 
 #define USBD_HANDLE                             USBD_Device
 #define PCD_HANDLE                              hpcd
-#define TIM_HANDLE                              TimHandle
 
 extern USBD_HandleTypeDef USBD_HANDLE;
 extern PCD_HandleTypeDef PCD_HANDLE;
-extern TIM_HandleTypeDef TIM_HANDLE;
 
 #endif /* (STM32CUBEL4__USE_HAL_USBD == 1) */
 

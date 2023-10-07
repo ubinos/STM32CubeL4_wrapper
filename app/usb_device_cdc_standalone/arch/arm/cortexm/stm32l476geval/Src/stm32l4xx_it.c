@@ -47,15 +47,5 @@ void OTG_FS_IRQHandler(void)
   HAL_PCD_IRQHandler(&PCD_HANDLE);
 }
 
-/**
-  * @brief  This function handles TIM interrupt request.
-  * @param  None
-  * @retval None
-  */
-void TIMx_IRQHandler(void)
-{
-  HAL_TIM_IRQHandler(&TIM_HANDLE);
-}
-
 #endif /* (UBINOS__BSP__BOARD_MODEL == UBINOS__BSP__BOARD_MODEL__STM32L476GEVAL) */
 

@@ -16,7 +16,7 @@ static void root_func(void *arg);
 
 static void cli_help_hook_func();
 static int cli_hook_func(char *str, int len, void *arg);
-static int my_command(char *str, int len, void *arg);
+static int cli_cmd_ut(char *str, int len, void *arg);
 
 extern void usb_init();
 
@@ -56,24 +56,23 @@ static void root_func(void *arg)
     r = task_create(NULL, cli_main, NULL, task_getmiddlepriority(), 0, "cli_main");
     ubi_assert(r == 0);
 
-  /* Enable Power Clock*/
-  __HAL_RCC_PWR_CLK_ENABLE();
-  
-  /* enable USB power on Pwrctrl CR2 register */
-  HAL_PWREx_EnableVddUSB();
+    /* Enable Power Clock*/
+    __HAL_RCC_PWR_CLK_ENABLE();
+    
+    /* enable USB power on Pwrctrl CR2 register */
+    HAL_PWREx_EnableVddUSB();
 
-  /* Init Device Library */
-  USBD_Init(&USBD_Device, &VCP_Desc, 0);
-  
-  /* Add Supported Class */
-  USBD_RegisterClass(&USBD_Device, USBD_CDC_CLASS);
-  
-  /* Add CDC Interface Class */
-  USBD_CDC_RegisterInterface(&USBD_Device, &USBD_CDC_fops);
-  
-  /* Start Device Process */
-  USBD_Start(&USBD_Device);
-
+    /* Init Device Library */
+    USBD_Init(&USBD_Device, &VCP_Desc, 0);
+    
+    /* Add Supported Class */
+    USBD_RegisterClass(&USBD_Device, USBD_CDC_CLASS);
+    
+    /* Add CDC Interface Class */
+    USBD_CDC_RegisterInterface(&USBD_Device, &USBD_CDC_fops);
+    
+    /* Start Device Process */
+    USBD_Start(&USBD_Device);
 }
 
 static int cli_hook_func(char *str, int len, void *arg)
@@ -87,14 +86,14 @@ static int cli_hook_func(char *str, int len, void *arg)
     tmpstr = str;
     tmplen = len;
 
-    cmd = "mc";
+    cmd = "ut";
     cmdlen = strlen(cmd);
     if (tmplen == cmdlen && strncmp(tmpstr, cmd, cmdlen) == 0)
     {
         tmpstr = &tmpstr[cmdlen];
         tmplen -= cmdlen;
 
-        r = my_command(tmpstr, tmplen, arg);
+        r = cli_cmd_ut(tmpstr, tmplen, arg);
     }
 
     return r;
@@ -102,13 +101,13 @@ static int cli_hook_func(char *str, int len, void *arg)
 
 static void cli_help_hook_func()
 {
-    printf("mc                                      : my command\n");
+    printf("ut                                      : usbd test\n");
 }
 
 #define TX_BUFFER_SIZE_MAX 1024
 uint8_t tx_buffer[TX_BUFFER_SIZE_MAX];
 
-static int my_command(char *str, int len, void *arg)
+static int cli_cmd_ut(char *str, int len, void *arg)
 {
     printf("\n");
 
@@ -132,10 +131,12 @@ static int my_command(char *str, int len, void *arg)
         USBD_CDC_SetTxBuffer(&USBD_Device, (uint8_t*)tx_buffer, TX_BUFFER_SIZE_MAX);
         if(USBD_CDC_TransmitPacket(&USBD_Device) == USBD_OK)
         {
+            // printf("%d\n", i);
             i++;
         }
         else
         {
+            // printf("%d\n", i);
             // printf("fail\r\n");
             // task_sleepms(10);
         }
