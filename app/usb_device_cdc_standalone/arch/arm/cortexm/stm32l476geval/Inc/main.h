@@ -88,6 +88,8 @@ void dtty_stm32_uart_err_callback(void);
 extern USBD_HandleTypeDef USBD_HANDLE;
 extern PCD_HandleTypeDef PCD_HANDLE;
 
+extern sem_pt usbd_write_sem;
+
 #endif /* (STM32CUBEL4__USE_HAL_USBD == 1) */
 
 #endif /* __MAIN_H */

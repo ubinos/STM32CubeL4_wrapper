@@ -62,6 +62,9 @@ static void root_func(void *arg)
     /* enable USB power on Pwrctrl CR2 register */
     HAL_PWREx_EnableVddUSB();
 
+    r = semb_create(&usbd_write_sem);
+    ubi_assert(r == 0);
+
     /* Init Device Library */
     USBD_Init(&USBD_Device, &VCP_Desc, 0);
     
@@ -119,29 +122,34 @@ static int cli_cmd_ut(char *str, int len, void *arg)
     USBD_CDC_SetTxBuffer(&USBD_Device, (uint8_t*)tx_buffer, 1);
     if(USBD_CDC_TransmitPacket(&USBD_Device) == USBD_OK)
     {
+        sem_take_timedms(usbd_write_sem, 1000);
+
+        printf("start\n");
+
+        for (int i = 0; i < 1000; )
+        {
+            USBD_CDC_SetTxBuffer(&USBD_Device, (uint8_t*)tx_buffer, TX_BUFFER_SIZE_MAX);
+            if(USBD_CDC_TransmitPacket(&USBD_Device) == USBD_OK)
+            {
+                if (i % 100 == 0)
+                {
+                    printf("%d\n", i);
+                }
+                i++;
+            }
+            else
+            {
+                // printf("%d\n", i);
+                // printf("fail\r\n");
+            }
+            sem_take_timedms(usbd_write_sem, 1000);
+        }
         printf("ok\n");
     }
     else
     {
         printf("fail\n");
     }
-
-    for (int i = 0; i < 1000; )
-    {
-        USBD_CDC_SetTxBuffer(&USBD_Device, (uint8_t*)tx_buffer, TX_BUFFER_SIZE_MAX);
-        if(USBD_CDC_TransmitPacket(&USBD_Device) == USBD_OK)
-        {
-            // printf("%d\n", i);
-            i++;
-        }
-        else
-        {
-            // printf("%d\n", i);
-            // printf("fail\r\n");
-            // task_sleepms(10);
-        }
-    }
-    printf("ok\n");
 
     return 0;
 }

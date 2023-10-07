@@ -67,6 +67,8 @@ void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart)
 USBD_HandleTypeDef USBD_HANDLE;
 PCD_HandleTypeDef PCD_HANDLE;
 
+sem_pt usbd_write_sem = NULL;
+
 #endif /* (STM32CUBEL4__USE_HAL_USBD == 1) */
 
 #endif /* (UBINOS__BSP__DTTY_TYPE == UBINOS__BSP__DTTY_TYPE__EXTERNAL) */
