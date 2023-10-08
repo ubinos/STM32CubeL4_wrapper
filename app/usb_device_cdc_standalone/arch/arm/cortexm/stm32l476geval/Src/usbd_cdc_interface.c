@@ -26,8 +26,6 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
-#define APP_RX_DATA_SIZE  2048
-#define APP_TX_DATA_SIZE  2048
 
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
@@ -166,6 +164,20 @@ static int8_t CDC_Itf_Control (uint8_t cmd, uint8_t* pbuf, uint16_t length)
   */
 static int8_t CDC_Itf_Receive(uint8_t* Buf, uint32_t *Len)
 {
+  uint8_t need_notify = 0;
+  
+  if (cbuf_get_len(usbd_read_cbuf) == 0)
+  {
+    need_notify = 1;
+  }
+  cbuf_write(usbd_read_cbuf, Buf, *Len, NULL);
+  if (need_notify && usbd_read_sem != NULL)
+  {
+    sem_give(usbd_read_sem);
+  }
+
+  USBD_CDC_ReceivePacket(&USBD_Device);
+
   return (USBD_OK);
 }
 

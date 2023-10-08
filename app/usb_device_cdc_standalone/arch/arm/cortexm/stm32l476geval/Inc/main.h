@@ -88,7 +88,18 @@ void dtty_stm32_uart_err_callback(void);
 extern USBD_HandleTypeDef USBD_HANDLE;
 extern PCD_HandleTypeDef PCD_HANDLE;
 
+#define APP_RX_DATA_SIZE  2048
+#define APP_TX_DATA_SIZE  2048
+
+extern uint8_t UserRxBuffer[APP_RX_DATA_SIZE];  /* Received Data over USB are stored in this buffer */
+extern uint8_t UserTxBuffer[APP_TX_DATA_SIZE];  /* Received Data over UART (CDC interface) are stored in this buffer */
+
 extern sem_pt usbd_write_sem;
+extern sem_pt usbd_read_sem;
+
+#define USBD_READ_CBUF_SIZE 2048
+
+extern cbuf_pt usbd_read_cbuf;
 
 #endif /* (STM32CUBEL4__USE_HAL_USBD == 1) */
 

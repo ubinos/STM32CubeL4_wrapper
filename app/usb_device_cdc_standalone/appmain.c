@@ -16,7 +16,8 @@ static void root_func(void *arg);
 
 static void cli_help_hook_func();
 static int cli_hook_func(char *str, int len, void *arg);
-static int cli_cmd_ut(char *str, int len, void *arg);
+static int cli_cmd_utup(char *str, int len, void *arg);
+static int cli_cmd_utdn(char *str, int len, void *arg);
 
 extern void usb_init();
 
@@ -64,6 +65,8 @@ static void root_func(void *arg)
 
     r = semb_create(&usbd_write_sem);
     ubi_assert(r == 0);
+    r = semb_create(&usbd_read_sem);
+    ubi_assert(r == 0);
 
     /* Init Device Library */
     USBD_Init(&USBD_Device, &VCP_Desc, 0);
@@ -89,14 +92,24 @@ static int cli_hook_func(char *str, int len, void *arg)
     tmpstr = str;
     tmplen = len;
 
-    cmd = "ut";
+    cmd = "utup";
     cmdlen = strlen(cmd);
     if (tmplen == cmdlen && strncmp(tmpstr, cmd, cmdlen) == 0)
     {
         tmpstr = &tmpstr[cmdlen];
         tmplen -= cmdlen;
 
-        r = cli_cmd_ut(tmpstr, tmplen, arg);
+        r = cli_cmd_utup(tmpstr, tmplen, arg);
+    }
+
+    cmd = "utdn";
+    cmdlen = strlen(cmd);
+    if (tmplen == cmdlen && strncmp(tmpstr, cmd, cmdlen) == 0)
+    {
+        tmpstr = &tmpstr[cmdlen];
+        tmplen -= cmdlen;
+
+        r = cli_cmd_utdn(tmpstr, tmplen, arg);
     }
 
     return r;
@@ -104,38 +117,36 @@ static int cli_hook_func(char *str, int len, void *arg)
 
 static void cli_help_hook_func()
 {
-    printf("ut                                      : usbd test\n");
+    printf("utup                                    : usbd upload test\n");
+    printf("utdn                                    : usbd download test\n");
 }
 
-#define TX_BUFFER_SIZE_MAX 1024
-uint8_t tx_buffer[TX_BUFFER_SIZE_MAX];
-
-static int cli_cmd_ut(char *str, int len, void *arg)
+static int cli_cmd_utup(char *str, int len, void *arg)
 {
     printf("\n");
 
-    for (int i = 0; i < TX_BUFFER_SIZE_MAX; i++)
+    for (int i = 0; i < APP_TX_DATA_SIZE; i++)
     {
-        tx_buffer[i] = i % 10 + 'a';
+        UserTxBuffer[i] = i % 10 + 'a';
     }
 
-    USBD_CDC_SetTxBuffer(&USBD_Device, (uint8_t*)tx_buffer, 1);
+    USBD_CDC_SetTxBuffer(&USBD_Device, UserTxBuffer, 1);
     if(USBD_CDC_TransmitPacket(&USBD_Device) == USBD_OK)
     {
         sem_take_timedms(usbd_write_sem, 1000);
 
         printf("start\n");
 
-        for (int i = 0; i < 1000; )
+        for (int i = 0; i < 500; )
         {
-            USBD_CDC_SetTxBuffer(&USBD_Device, (uint8_t*)tx_buffer, TX_BUFFER_SIZE_MAX);
+            USBD_CDC_SetTxBuffer(&USBD_Device, UserTxBuffer, APP_TX_DATA_SIZE);
             if(USBD_CDC_TransmitPacket(&USBD_Device) == USBD_OK)
             {
+                i++;
                 if (i % 100 == 0)
                 {
                     printf("%d\n", i);
                 }
-                i++;
             }
             else
             {
@@ -151,5 +162,38 @@ static int cli_cmd_ut(char *str, int len, void *arg)
         printf("fail\n");
     }
 
+    return 0;
+}
+
+static int cli_cmd_utdn(char *str, int len, void *arg)
+{
+    int count = 0;
+    uint8_t data = 0;
+    uint32_t read;
+    ubi_err_t ubi_err;
+
+    printf("\n");
+
+    do
+    {
+        sem_take_timedms(usbd_read_sem, 1000);
+
+        while (cbuf_get_len(usbd_read_cbuf) > 0)
+        {
+            ubi_err = cbuf_read(usbd_read_cbuf, &data, 1, &read);
+            ubi_assert_ok(ubi_err);
+            printf("%c", data);
+            count ++;
+            if (data == 'q')
+            {
+                break;
+            }
+        }
+        if (data == 'q')
+        {
+            break;
+        }
+    } while(1);
+    
     return 0;
 }
