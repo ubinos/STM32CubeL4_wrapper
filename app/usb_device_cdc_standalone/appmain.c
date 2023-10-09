@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 #include <main.h>
 
@@ -130,6 +131,8 @@ uint8_t utup_buf[UTUP_BUF_SIZE];
 
 static int cli_cmd_utup(char *str, int len, void *arg)
 {
+    srand((unsigned int)time(NULL));
+    
     printf("\n");
 
     for (int i = 0; i < UTUP_BUF_SIZE; i++)
@@ -161,14 +164,14 @@ static int cli_cmd_utup(char *str, int len, void *arg)
         }
     }
 
-    printf("start");
+    printf("start\n");
 
     for (int i = 0; i < 1000; )
     {
         do
         {
             sem_take_timedms(usbd_write_sem, 1000);
-            if (cbuf_get_empty_len(usbd_write_cbuf) >= UTUP_BUF_SIZE)
+            if (cbuf_get_empty_len(usbd_write_cbuf) >= (UTUP_BUF_SIZE))
             {
                 break;
             }
@@ -178,7 +181,7 @@ static int cli_cmd_utup(char *str, int len, void *arg)
         if (usbd_write_need_restart == 1 && cbuf_get_len(usbd_write_cbuf) > 0)
         {
             usbd_write_need_restart = 0;
-            usbd_write_trying_size = min(cbuf_get_len(usbd_write_cbuf), APP_TX_DATA_SIZE);
+            usbd_write_trying_size = min(cbuf_get_len(usbd_write_cbuf), APP_TX_DATA_SIZE) - (rand() % 10);
             cbuf_view(usbd_write_cbuf, UserTxBuffer, usbd_write_trying_size, &usbd_write_trying_size);
             USBD_CDC_SetTxBuffer(&USBD_Device, UserTxBuffer, usbd_write_trying_size);
             if(USBD_CDC_TransmitPacket(&USBD_Device) != USBD_OK)
