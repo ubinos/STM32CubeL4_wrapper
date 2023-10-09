@@ -8,7 +8,11 @@
 
 #if (UBINOS__BSP__BOARD_MODEL == UBINOS__BSP__BOARD_MODEL__STM32L476GEVAL)
 
+#include <ubinos/bsp/arch.h>
+
 #include "main.h"
+
+#include <stdio.h>
 
 #if (UBINOS__BSP__DTTY_TYPE == UBINOS__BSP__DTTY_TYPE__EXTERNAL)
 
@@ -25,10 +29,14 @@ UART_HandleTypeDef DTTY_STM32_UART_HANDLE;
  */
 void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart)
 {
+#if (UBINOS__BSP__DTTY_TYPE == UBINOS__BSP__DTTY_TYPE__EXTERNAL)
+#if (STM32CUBEL4__DTTY_STM32_UART_ENABLE == 1)
     if (huart->Instance == DTTY_STM32_UART)
     {
         dtty_stm32_uart_tx_callback();
     }
+#endif /* (STM32CUBEL4__DTTY_STM32_UART_ENABLE == 1) */
+#endif /* (UBINOS__BSP__DTTY_TYPE == UBINOS__BSP__DTTY_TYPE__EXTERNAL) */
 }
 
 /**
@@ -40,10 +48,14 @@ void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart)
  */
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
+#if (UBINOS__BSP__DTTY_TYPE == UBINOS__BSP__DTTY_TYPE__EXTERNAL)
+#if (STM32CUBEL4__DTTY_STM32_UART_ENABLE == 1)
     if (huart->Instance == DTTY_STM32_UART)
     {
         dtty_stm32_uart_rx_callback();
     }
+#endif /* (STM32CUBEL4__DTTY_STM32_UART_ENABLE == 1) */
+#endif /* (UBINOS__BSP__DTTY_TYPE == UBINOS__BSP__DTTY_TYPE__EXTERNAL) */
 }
 
 /**
@@ -55,10 +67,14 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
  */
 void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart)
 {
+#if (UBINOS__BSP__DTTY_TYPE == UBINOS__BSP__DTTY_TYPE__EXTERNAL)
+#if (STM32CUBEL4__DTTY_STM32_UART_ENABLE == 1)
     if (huart->Instance == DTTY_STM32_UART)
     {
         dtty_stm32_uart_err_callback();
     }
+#endif /* (STM32CUBEL4__DTTY_STM32_UART_ENABLE == 1) */
+#endif /* (UBINOS__BSP__DTTY_TYPE == UBINOS__BSP__DTTY_TYPE__EXTERNAL) */
 }
 
 #endif /* (STM32CUBEL4__DTTY_STM32_UART_ENABLE == 1) */
