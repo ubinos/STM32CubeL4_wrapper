@@ -25,10 +25,23 @@
 #include "stm32l4xx_hal.h"
 #include "stm32l476g_eval.h"
 
+#if (STM32CUBEL4__DTTY_STM32_USBD_ENABLE == 1)
+
+#include "usbd_core.h"
+#include "usbd_desc.h"
+#include "usbd_cdc.h" 
+#include "usbd_cdc_interface.h"
+
+#endif /* (STM32CUBEL4__DTTY_STM32_USBD_ENABLE == 1) */
+
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
+
+#if (UBINOS__BSP__DTTY_TYPE == UBINOS__BSP__DTTY_TYPE__EXTERNAL)
+
+#if (STM32CUBEL4__DTTY_STM32_UART_ENABLE == 1)
 
 /* Definition for DTTY_STM32_UART */
 
@@ -65,6 +78,23 @@ extern UART_HandleTypeDef DTTY_STM32_UART_HANDLE;
 void dtty_stm32_uart_rx_callback(void);
 void dtty_stm32_uart_tx_callback(void);
 void dtty_stm32_uart_err_callback(void);
+
+#endif /* (STM32CUBEL4__DTTY_STM32_UART_ENABLE == 1) */
+
+#if (STM32CUBEL4__DTTY_STM32_USBD_ENABLE == 1)
+
+#define DTTY_STM32_USBD_HANDLE                  USBD_Device
+#define DTTY_STM32_PCD_HANDLE                   hpcd
+
+extern USBD_HandleTypeDef DTTY_STM32_USBD_HANDLE;
+extern PCD_HandleTypeDef DTTY_STM32_PCD_HANDLE;
+
+extern void dtty_stm32_usbd_rx_callback(uint8_t* buf, uint32_t *len);
+extern void dtty_stm32_usbd_tx_callback(void);
+
+#endif /* (STM32CUBEL4__DTTY_STM32_USBD_ENABLE == 1) */
+
+#endif /* (UBINOS__BSP__DTTY_TYPE == UBINOS__BSP__DTTY_TYPE__EXTERNAL) */
 
 #endif /* __MAIN_H */
 

@@ -12,6 +12,8 @@
 
 #if (UBINOS__BSP__DTTY_TYPE == UBINOS__BSP__DTTY_TYPE__EXTERNAL)
 
+#if (STM32CUBEL4__DTTY_STM32_UART_ENABLE == 1)
+
 UART_HandleTypeDef DTTY_STM32_UART_HANDLE;
 
 /**
@@ -58,6 +60,15 @@ void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart)
         dtty_stm32_uart_err_callback();
     }
 }
+
+#endif /* (STM32CUBEL4__DTTY_STM32_UART_ENABLE == 1) */
+
+#if (STM32CUBEL4__DTTY_STM32_USBD_ENABLE == 1)
+
+USBD_HandleTypeDef DTTY_STM32_USBD_HANDLE;
+PCD_HandleTypeDef DTTY_STM32_PCD_HANDLE;
+
+#endif /* (STM32CUBEL4__DTTY_STM32_USBD_ENABLE == 1) */
 
 #endif /* (UBINOS__BSP__DTTY_TYPE == UBINOS__BSP__DTTY_TYPE__EXTERNAL) */
 
