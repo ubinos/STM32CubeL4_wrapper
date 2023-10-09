@@ -69,7 +69,7 @@ USBD_CDC_ItfTypeDef USBD_CDC_fops =
   */
 static int8_t CDC_Itf_Init(void)
 {
-  USBD_CDC_SetTxBuffer(&USBD_Device, UserTxBuffer, 0);
+  USBD_CDC_SetTxBuffer(&USBD_Device, cbuf_get_head_addr(usbd_write_cbuf), 0);
   USBD_CDC_SetRxBuffer(&USBD_Device, UserRxBuffer);
   
   return (USBD_OK);

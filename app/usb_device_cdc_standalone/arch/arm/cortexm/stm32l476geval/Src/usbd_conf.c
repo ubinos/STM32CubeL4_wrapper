@@ -135,9 +135,57 @@ void HAL_PCD_DataInStageCallback(PCD_HandleTypeDef *hpcd, uint8_t epnum)
   (void) status;
 
   status = USBD_LL_DataInStage(hpcd->pData, epnum, hpcd->IN_ep[epnum].xfer_buff);
-  if (hpcd->IN_ep[epnum].xfer_len == 0 && usbd_write_sem != NULL)
+
+  USBD_HandleTypeDef *pdev = hpcd->pData;
+  if (epnum == 0U)
   {
-    sem_give(usbd_write_sem);
+  }
+  else if ((pdev->pClass->DataOut != NULL) &&
+           (pdev->dev_state == USBD_STATE_CONFIGURED))
+  {
+    if (pdev->pClassData != NULL)
+    {
+      USBD_CDC_HandleTypeDef *hcdc = (USBD_CDC_HandleTypeDef *)pdev->pClassData;
+      if (hcdc->TxState == 0U)
+      {
+        if (usbd_write_trying_size > 0)
+        {
+          cbuf_read(usbd_write_cbuf, NULL, usbd_write_trying_size, NULL);
+
+          if (cbuf_get_len(usbd_write_cbuf) > 0)
+          {
+            usbd_write_trying_size = min(cbuf_get_len(usbd_write_cbuf), APP_TX_DATA_SIZE);
+            cbuf_view(usbd_write_cbuf, UserTxBuffer, usbd_write_trying_size, &usbd_write_trying_size);
+            USBD_CDC_SetTxBuffer(&USBD_Device, UserTxBuffer, usbd_write_trying_size);
+            if(USBD_CDC_TransmitPacket(&USBD_Device) != USBD_OK)
+            {
+              usbd_write_need_restart = 1;
+              usbd_write_trying_size = 0;
+              if (usbd_write_sem != NULL)
+              {
+                sem_give(usbd_write_sem);
+              }
+            }
+            else
+            {
+              if (cbuf_get_len(usbd_write_cbuf) < (USBD_WRITE_CBUF_SIZE / 2))
+              {
+                sem_give(usbd_write_sem);
+              }
+            }
+          }
+          else
+          {
+            usbd_write_need_restart = 1;
+            usbd_write_trying_size = 0;
+            if (usbd_write_sem != NULL)
+            {
+              sem_give(usbd_write_sem);
+            }
+          }
+        }
+      }
+    }
   }
 }
 

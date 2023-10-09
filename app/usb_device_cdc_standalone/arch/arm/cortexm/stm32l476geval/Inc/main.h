@@ -97,9 +97,14 @@ extern uint8_t UserTxBuffer[APP_TX_DATA_SIZE];  /* Received Data over UART (CDC 
 extern sem_pt usbd_write_sem;
 extern sem_pt usbd_read_sem;
 
+#define USBD_WRITE_CBUF_SIZE 2048
 #define USBD_READ_CBUF_SIZE 2048
 
+extern cbuf_pt usbd_write_cbuf;
 extern cbuf_pt usbd_read_cbuf;
+
+extern uint8_t usbd_write_need_restart;
+extern uint32_t usbd_write_trying_size;
 
 #endif /* (STM32CUBEL4__USE_HAL_USBD == 1) */
 

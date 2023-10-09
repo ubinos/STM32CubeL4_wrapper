@@ -70,7 +70,11 @@ PCD_HandleTypeDef PCD_HANDLE;
 sem_pt usbd_write_sem = NULL;
 sem_pt usbd_read_sem = NULL;
 
+cbuf_def_init(usbd_write_cbuf, USBD_WRITE_CBUF_SIZE);
 cbuf_def_init(usbd_read_cbuf, USBD_READ_CBUF_SIZE);
+
+uint8_t usbd_write_need_restart = 0;
+uint32_t usbd_write_trying_size = 0;
 
 #endif /* (STM32CUBEL4__USE_HAL_USBD == 1) */
 

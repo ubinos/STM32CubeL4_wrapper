@@ -68,6 +68,8 @@ static void root_func(void *arg)
     r = semb_create(&usbd_read_sem);
     ubi_assert(r == 0);
 
+    usbd_write_need_restart = 1;
+
     /* Init Device Library */
     USBD_Init(&USBD_Device, &VCP_Desc, 0);
     
@@ -79,6 +81,8 @@ static void root_func(void *arg)
     
     /* Start Device Process */
     USBD_Start(&USBD_Device);
+
+    sem_give(usbd_write_sem);
 }
 
 static int cli_hook_func(char *str, int len, void *arg)
@@ -121,46 +125,78 @@ static void cli_help_hook_func()
     printf("utdn                                    : usbd download test\n");
 }
 
+#define UTUP_BUF_SIZE 1024
+uint8_t utup_buf[UTUP_BUF_SIZE];
+
 static int cli_cmd_utup(char *str, int len, void *arg)
 {
     printf("\n");
 
-    for (int i = 0; i < APP_TX_DATA_SIZE; i++)
+    for (int i = 0; i < UTUP_BUF_SIZE; i++)
     {
-        UserTxBuffer[i] = i % 10 + 'a';
+        utup_buf[i] = i % 10 + 'a';
     }
+    utup_buf[UTUP_BUF_SIZE - 2] = '\n';
+    utup_buf[UTUP_BUF_SIZE - 1] = '\r';
 
-    USBD_CDC_SetTxBuffer(&USBD_Device, UserTxBuffer, 1);
-    if(USBD_CDC_TransmitPacket(&USBD_Device) == USBD_OK)
+    do
     {
         sem_take_timedms(usbd_write_sem, 1000);
-
-        printf("start\n");
-
-        for (int i = 0; i < 500; )
+        if (cbuf_get_empty_len(usbd_write_cbuf) >= 1)
         {
-            USBD_CDC_SetTxBuffer(&USBD_Device, UserTxBuffer, APP_TX_DATA_SIZE);
-            if(USBD_CDC_TransmitPacket(&USBD_Device) == USBD_OK)
+            break;
+        }
+    } while (1);
+    cbuf_write(usbd_write_cbuf, utup_buf, 1, NULL);
+    if (usbd_write_need_restart == 1 && cbuf_get_len(usbd_write_cbuf) > 0)
+    {
+        usbd_write_need_restart = 0;
+        usbd_write_trying_size = 1;
+        cbuf_view(usbd_write_cbuf, UserTxBuffer, usbd_write_trying_size, &usbd_write_trying_size);
+        USBD_CDC_SetTxBuffer(&USBD_Device, UserTxBuffer, usbd_write_trying_size);
+        if(USBD_CDC_TransmitPacket(&USBD_Device) != USBD_OK)
+        {
+            usbd_write_need_restart = 1;
+            usbd_write_trying_size = 0;
+        }
+    }
+
+    printf("start");
+
+    for (int i = 0; i < 1000; )
+    {
+        do
+        {
+            sem_take_timedms(usbd_write_sem, 1000);
+            if (cbuf_get_empty_len(usbd_write_cbuf) >= UTUP_BUF_SIZE)
             {
-                i++;
-                if (i % 100 == 0)
-                {
-                    printf("%d\n", i);
-                }
+                break;
+            }
+        } while (1);
+        utup_buf[0] = '0' + (i % 10) ;
+        cbuf_write(usbd_write_cbuf, utup_buf, UTUP_BUF_SIZE, NULL);
+        if (usbd_write_need_restart == 1 && cbuf_get_len(usbd_write_cbuf) > 0)
+        {
+            usbd_write_need_restart = 0;
+            usbd_write_trying_size = min(cbuf_get_len(usbd_write_cbuf), APP_TX_DATA_SIZE);
+            cbuf_view(usbd_write_cbuf, UserTxBuffer, usbd_write_trying_size, &usbd_write_trying_size);
+            USBD_CDC_SetTxBuffer(&USBD_Device, UserTxBuffer, usbd_write_trying_size);
+            if(USBD_CDC_TransmitPacket(&USBD_Device) != USBD_OK)
+            {
+                usbd_write_need_restart = 1;
+                usbd_write_trying_size = 0;
             }
             else
             {
-                // printf("%d\n", i);
-                // printf("fail\r\n");
             }
-            sem_take_timedms(usbd_write_sem, 1000);
         }
-        printf("ok\n");
+        i++;
+        if (i % 100 == 0)
+        {
+            printf("%d\n", i);
+        }
     }
-    else
-    {
-        printf("fail\n");
-    }
+    printf("ok\n");
 
     return 0;
 }
