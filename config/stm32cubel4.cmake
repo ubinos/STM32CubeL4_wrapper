@@ -1,7 +1,7 @@
 set(INCLUDE__STM32CUBEL4 TRUE)
 set(PROJECT_UBINOS_LIBRARIES ${PROJECT_UBINOS_LIBRARIES} STM32CubeL4_wrapper)
 
-set_cache_default(STM32CUBEL4__BASE_DIR "${PROJECT_LIBRARY_DIR}/STM32CubeL4_v01.15.00" STRING "stm32cubel4 project base dir")
+set_cache_default(STM32CUBEL4__BASE_DIR "${PROJECT_LIBRARY_DIR}/STM32CubeL4_v01.15.00_lite" STRING "stm32cubel4 project base dir")
 
 set_cache_default(STM32CUBEL4__USE_HAL_DRIVER TRUE BOOL "Use STM32 Cube L4 HAL Driver")
 
