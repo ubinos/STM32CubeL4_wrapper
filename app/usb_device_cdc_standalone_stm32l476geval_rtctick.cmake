@@ -16,8 +16,8 @@ set_cache(STM32CUBEL4__DTTY_STM32_UART_ENABLE TRUE BOOL)
 set_cache(STM32CUBEL4__USE_HAL_USBD TRUE BOOL)
 
 include(${PROJECT_UBINOS_DIR}/config/ubinos_stm32l476geval.cmake)
-include(${PROJECT_LIBRARY_DIR}/stm32cubel4_wrapper/config/stm32cubel4.cmake)
-include(${PROJECT_LIBRARY_DIR}/stm32cubel4_extension/config/stm32cubel4_extension.cmake)
+include(${PROJECT_LIBRARY_DIR}/STM32CubeL4_wrapper/config/stm32cubel4.cmake)
+include(${PROJECT_LIBRARY_DIR}/STM32CubeL4_extension/config/stm32cubel4_extension.cmake)
 
 ####
 

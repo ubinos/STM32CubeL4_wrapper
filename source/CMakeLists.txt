@@ -10,7 +10,7 @@ include("${CMAKE_CURRENT_LIST_DIR}/../../ubinos/config/common.cmake")
 
 ubinos_project_begin()
 
-project(stm32cubel4_wrapper)
+project(STM32CubeL4_wrapper)
 
 ubinos_project_end()
 
